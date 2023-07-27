@@ -1,0 +1,56 @@
+﻿@model IEnumerable<mmm.Titre>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.datetitre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prixtitre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.villetitre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.client.clientnom)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.datetitre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prixtitre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.villetitre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client.clientnom)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Idtitre }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Idtitre }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Idtitre })
+            </td>
+        </tr>
+    }
+<div>
+    @Html.ActionLink("Retour à l'accueil", "RedirectHomeIndex", "Titre", null, new { @class = "btn btn-primary" })
+</div>
+
+
+</table>

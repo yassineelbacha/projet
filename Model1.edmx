@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mvccruddbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="clientid" />
+          </Key>
+          <Property Name="clientid" Type="int" Nullable="false" />
+          <Property Name="clientnom" Type="nvarchar" MaxLength="50" />
+          <Property Name="clientprix" Type="int" />
+          <Property Name="clientnbrtitre" Type="int" />
+          <Property Name="Idtitre" Type="int" />
+        </EntityType>
+        <EntityType Name="Titre">
+          <Key>
+            <PropertyRef Name="Idtitre" />
+          </Key>
+          <Property Name="Idtitre" Type="int" Nullable="false" />
+          <Property Name="datetitre" Type="date" />
+          <Property Name="prixtitre" Type="int" />
+          <Property Name="villetitre" Type="nchar" MaxLength="20" />
+          <Property Name="idclient" Type="int" />
+        </EntityType>
+        <Association Name="FK__client__Idtitre__4AB81AF0">
+          <End Role="Titre" Type="Self.Titre" Multiplicity="0..1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Titre">
+              <PropertyRef Name="Idtitre" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="Idtitre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Titre__idclient__49C3F6B7">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="Titre" Type="Self.Titre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="clientid" />
+            </Principal>
+            <Dependent Role="Titre">
+              <PropertyRef Name="idclient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mvccruddbModelStoreContainer">
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Titre" EntityType="Self.Titre" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__client__Idtitre__4AB81AF0" Association="Self.FK__client__Idtitre__4AB81AF0">
+            <End Role="Titre" EntitySet="Titre" />
+            <End Role="client" EntitySet="client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Titre__idclient__49C3F6B7" Association="Self.FK__Titre__idclient__49C3F6B7">
+            <End Role="client" EntitySet="client" />
+            <End Role="Titre" EntitySet="Titre" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mvccruddbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="clientid" />
+          </Key>
+          <Property Name="clientid" Type="Int32" Nullable="false" />
+          <Property Name="clientnom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="clientprix" Type="Int32" />
+          <Property Name="clientnbrtitre" Type="Int32" />
+          <Property Name="Idtitre" Type="Int32" />
+          <NavigationProperty Name="Titre" Relationship="Self.FK__client__Idtitre__4AB81AF0" FromRole="client" ToRole="Titre" />
+          <NavigationProperty Name="Titres" Relationship="Self.FK__Titre__idclient__49C3F6B7" FromRole="client" ToRole="Titre" />
+        </EntityType>
+        <EntityType Name="Titre">
+          <Key>
+            <PropertyRef Name="Idtitre" />
+          </Key>
+          <Property Name="Idtitre" Type="Int32" Nullable="false" />
+          <Property Name="datetitre" Type="DateTime" Precision="0" />
+          <Property Name="prixtitre" Type="Int32" />
+          <Property Name="villetitre" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="idclient" Type="Int32" />
+          <NavigationProperty Name="clients" Relationship="Self.FK__client__Idtitre__4AB81AF0" FromRole="Titre" ToRole="client" />
+          <NavigationProperty Name="client" Relationship="Self.FK__Titre__idclient__49C3F6B7" FromRole="Titre" ToRole="client" />
+        </EntityType>
+        <Association Name="FK__client__Idtitre__4AB81AF0">
+          <End Role="Titre" Type="Self.Titre" Multiplicity="0..1" />
+          <End Role="client" Type="Self.client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Titre">
+              <PropertyRef Name="Idtitre" />
+            </Principal>
+            <Dependent Role="client">
+              <PropertyRef Name="Idtitre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Titre__idclient__49C3F6B7">
+          <End Role="client" Type="Self.client" Multiplicity="0..1" />
+          <End Role="Titre" Type="Self.Titre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="clientid" />
+            </Principal>
+            <Dependent Role="Titre">
+              <PropertyRef Name="idclient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mvccruddbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="Titres" EntityType="Self.Titre" />
+          <AssociationSet Name="FK__client__Idtitre__4AB81AF0" Association="Self.FK__client__Idtitre__4AB81AF0">
+            <End Role="Titre" EntitySet="Titres" />
+            <End Role="client" EntitySet="clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Titre__idclient__49C3F6B7" Association="Self.FK__Titre__idclient__49C3F6B7">
+            <End Role="client" EntitySet="clients" />
+            <End Role="Titre" EntitySet="Titres" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mvccruddbModelStoreContainer" CdmEntityContainer="mvccruddbContext">
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="mvccruddbModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="clientid" ColumnName="clientid" />
+                <ScalarProperty Name="clientnom" ColumnName="clientnom" />
+                <ScalarProperty Name="clientprix" ColumnName="clientprix" />
+                <ScalarProperty Name="clientnbrtitre" ColumnName="clientnbrtitre" />
+                <ScalarProperty Name="Idtitre" ColumnName="Idtitre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Titres">
+            <EntityTypeMapping TypeName="mvccruddbModel.Titre">
+              <MappingFragment StoreEntitySet="Titre">
+                <ScalarProperty Name="Idtitre" ColumnName="Idtitre" />
+                <ScalarProperty Name="datetitre" ColumnName="datetitre" />
+                <ScalarProperty Name="prixtitre" ColumnName="prixtitre" />
+                <ScalarProperty Name="villetitre" ColumnName="villetitre" />
+                <ScalarProperty Name="idclient" ColumnName="idclient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

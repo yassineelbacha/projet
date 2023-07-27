@@ -1,0 +1,42 @@
+﻿@model mmm.client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>client</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.clientnom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clientnom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clientprix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clientprix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clientnbrtitre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clientnbrtitre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.clientid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
